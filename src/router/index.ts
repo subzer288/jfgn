@@ -14,7 +14,7 @@ const router = createRouter({
       children: [
         {
           name: 'Home',
-          path: '',
+          path: '/home',
           component: HomePage
         },
         {
