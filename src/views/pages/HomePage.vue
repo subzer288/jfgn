@@ -30,9 +30,9 @@
 </script>
 
 <template>
-   <v-container class="mb-6">
+   <v-container fluid class="">
       
-      <v-row align="center" justify="center" >
+      <v-row align="center" justify="center">
         <!-- <section v-if="errored">
             <p>Lo sentimos, no es posible obtener la información en este momento, por favor intente nuevamente mas tarde</p>
         </section>
@@ -48,7 +48,6 @@
           <v-col cols="auto" v-for="(item, index) in data" :key="index">
             <v-card
               class="mx-auto"
-              max-width="344"
               prepend-icon="mdi-github"
               :subtitle="item.node_id"
               :title="item.name"
@@ -57,13 +56,13 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 
-                <v-btn color="surface-variant" variant="text">Explore</v-btn>
+                <v-btn color="surface-variant" variant="text" :href="item.html_url">Explore</v-btn>
 
-                <v-btn color="surface-variant" icon="mdi-heart" size="small" variant="text"></v-btn>
+                <!-- <v-btn color="surface-variant" icon="mdi-star" size="small" variant="text"></v-btn>
 
                 <v-btn color="surface-variant" icon="mdi-bookmark" size="small" variant="text"></v-btn>
 
-                <v-btn color="surface-variant" icon="mdi-share-variant" size="small" variant="text"></v-btn>
+                <v-btn color="surface-variant" icon="mdi-share-variant" size="small" variant="text"></v-btn> -->
               </v-card-actions>
             </v-card>
           </v-col>
