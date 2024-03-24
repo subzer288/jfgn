@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// Utilities
+    import { mapState, mapMutations } from 'vuex'
+
 </script>
 
 <template>
@@ -8,7 +11,7 @@
     >
         <v-list>
             <v-list-item
-            prepend-avatar="https://media.licdn.com/dms/image/C4D03AQGHlvNACY7Jvw/profile-displayphoto-shrink_400_400/0/1668103824943?e=1716422400&v=beta&t=ID9WS44jzVYl3AQ3WHYGztBXbtUClQWwiUaQwIn9o9o"
+            prepend-avatar="..."
             subtitle="jair_godinez@konevaproject.com"
             title="Jair Godinez"
             ></v-list-item>
