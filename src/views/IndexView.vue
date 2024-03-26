@@ -12,7 +12,7 @@ import ContentComponent from './components/ContentComponent.vue'
             <AppBarComponent/>
             <SideBarComponent />
 
-            <v-main  style="min-height: 300px;">
+            <v-main  class="d-flex justify-center align-center h-100">
                 <ContentComponent />
             </v-main>
         </v-layout>

@@ -1,29 +1,46 @@
 <script setup lang="ts">
-  import { onBeforeMount } from 'vue'
   import getRepos  from '@/services/Github';
   import type { GithubRepository } from '@/interfaces/GithubRepository';
+  import { onMounted, ref } from 'vue';
+
+  //Components
+  import RepoComponent from './../../components/RepoComponent.vue'
+
+  //Storage
+  import { useStore } from '@/stores/store';
+
+  let store = useStore();
   
-  let data: Array<GithubRepository> | null = null;  
-  let loading = true
-  let errored = false
+  
+  let data: Array<GithubRepository>;  
+  let loading = ref(true)
+  let errored = ref(false)
+
+  
     
-  onBeforeMount(() => {
-    if(localStorage.getItem("data") == null){
+  onMounted(() => {
+    if(!store.state.repos){
+        console.log('github')
         getRepos().then((info: any) => {
         data = info.data;
-        console.log(data);
-        localStorage.setItem("data", JSON.stringify(info.data));
+        // localStorage.setItem("data", JSON.stringify(info.data));
+        store.commit('SET_REPOS',data)
+        console.log('stored on vuex')
         })
         .catch(error => {
           console.log(error)
-          errored = true
+          errored.value = true
         })
-        .finally(() => loading = false);
+        .finally(() => {
+          setTimeout(()=>{
+            loading.value = false
+          }, 2000)
+        });
 
     }else{
-        data = JSON.parse(localStorage.getItem("data")!) as Array<GithubRepository>;
-        loading = false
-        console.log(data, loading, errored)
+      data = store.state.repos
+      // data = JSON.parse(localStorage.getItem("data")!) as Array<GithubRepository>;
+      loading.value = false
     }
   })
   
@@ -32,43 +49,31 @@
 <template>
    <v-container fluid class="">
       
-      <v-row align="center" justify="center">
-        <!-- <section v-if="errored">
-            <p>Lo sentimos, no es posible obtener la información en este momento, por favor intente nuevamente mas tarde</p>
-        </section>
-        <section v-else>
-          <div v-if="loading">
+        <v-row align="center" justify="center" v-if="loading">
+          <section>
             <v-progress-circular
               :size="70"
               :width="7"
               color="purple"
               indeterminate
             ></v-progress-circular>
-          </div> -->
-          <v-col cols="auto" v-for="(item, index) in data" :key="index">
-            <v-card
-              class="mx-auto"
-              prepend-icon="mdi-github"
-              :subtitle="item.node_id"
-              :title="item.name"
-            >
-              <v-card-text>{{ item.description }}</v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                
-                <v-btn color="surface-variant" variant="text" :href="item.html_url">Explore</v-btn>
-
-                <!-- <v-btn color="surface-variant" icon="mdi-star" size="small" variant="text"></v-btn>
-
-                <v-btn color="surface-variant" icon="mdi-bookmark" size="small" variant="text"></v-btn>
-
-                <v-btn color="surface-variant" icon="mdi-share-variant" size="small" variant="text"></v-btn> -->
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        <!-- </section> -->
+          </section>
+        </v-row>
+        <v-row v-else>
+          <v-container>
+            <v-row v-if="errored" align="center" justify="center">
+              <v-col cols="12">
+                <p>Lo sentimos, no es posible obtener la información en este momento, por favor intente nuevamente mas tarde</p>
+              </v-col>
+            </v-row>
+            <v-row v-else>
+              <v-col cols="4" v-for="(item, index) in data" :key="index">
+                <RepoComponent v-bind:data="item"/>
+              </v-col>
+            </v-row>
+          </v-container>
+          
+        </v-row>
         
-
-      </v-row>
     </v-container>
 </template>

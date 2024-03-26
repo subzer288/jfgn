@@ -10,11 +10,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
+      redirect: { path: "/home" },
       component: IndexView,
       children: [
         {
           name: 'Home',
-          path: '/',
+          path: '/home',
           component: HomePage
         },
         {

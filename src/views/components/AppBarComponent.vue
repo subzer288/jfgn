@@ -1,30 +1,32 @@
 <script setup lang="ts">
-  // import { computed } from 'vue'
-  import { onMounted } from 'vue';
-  import { mapState, mapMutations } from 'vuex'
+  import { useStore } from '@/stores/store';
 
-  onMounted(()=>{
-    console.log(computed, methods)
-  })
+  let store = useStore()
 
-  let computed = mapState(['drawer']);
+  let drawer = defineModel({
+    get(){
+          return store.state.drawer
+        },
+        set (val: boolean | null | undefined) {
+          store.commit('SET_DRAWER', val)
+        }});
 
-  let methods = mapMutations({
-    setDrawer: 'SET_DRAWER',
-  });
+  // let methods = mapMutations({
+  //   setDrawer: 'SET_DRAWER',
+  // });
 
-  // @click="setDrawer(!drawer)"
+  // "
 </script>
 
 <template>
-  <v-app-bar :elevation="2">
+  <v-app-bar :elevation="2" class="">
     <template v-slot:prepend >
-      <v-app-bar-nav-icon ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     </template>
 
     <v-spacer></v-spacer>
 
-    <v-btn icon>
+    <!-- <v-btn icon>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
@@ -34,6 +36,6 @@
 
     <v-btn icon>
       <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn>
+    </v-btn> -->
   </v-app-bar>  
 </template>
