@@ -20,7 +20,11 @@
     expand-on-hover
     rail
     v-model="drawer"
-    >
+    mobile-break-point="960"
+    width="260"
+    app
+    floating
+    style="position:fixed;">
         <v-list>
             <v-list-item
             prepend-avatar="..."
@@ -28,8 +32,6 @@
             title="Jair Godinez"
             ></v-list-item>
         </v-list>
-
-        <v-divider></v-divider>
 
         <v-list density="compact" nav>
             <v-list-item prepend-icon="mdi-github" title="Github projects" value="github" to="/home"></v-list-item>

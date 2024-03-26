@@ -67,8 +67,8 @@
               </v-col>
             </v-row>
             <v-row v-else>
-              <v-col cols="4" v-for="(item, index) in data" :key="index">
-                <RepoComponent v-bind:data="item"/>
+              <v-col :cols="12" :lg="3" :offset-lg="1" :md="4" :offset-md="1" :sm="10"  v-for="(item, index) in data" :key="index">
+                <RepoComponent :data="item"/>
               </v-col>
             </v-row>
           </v-container>

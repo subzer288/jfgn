@@ -19,7 +19,12 @@
 </script>
 
 <template>
-  <v-app-bar :elevation="2" class="">
+  <v-app-bar
+    absolute
+    app
+    flat
+    style="position:fixed;"
+    height="75">
     <template v-slot:prepend >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
     </template>
@@ -28,7 +33,7 @@
 
     <!-- <v-btn icon>
       <v-icon>mdi-magnify</v-icon>
-    </v-btn>
+    </v-btn> -->
 
     <v-btn icon>
       <v-icon>mdi-heart</v-icon>
@@ -36,6 +41,6 @@
 
     <v-btn icon>
       <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn> -->
+    </v-btn>
   </v-app-bar>  
 </template>
