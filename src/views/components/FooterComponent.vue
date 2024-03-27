@@ -18,6 +18,9 @@
 <template>
     <v-footer id="footer-component" inset app>
       <v-container>
+        <v-row>
+          
+        </v-row>
         <v-row
           align="center"
           no-gutters
@@ -45,7 +48,7 @@
               <v-icon size="18">
                 mdi-heart
               </v-icon>
-              by <a href="http://konevaproject.com">KonevaProject</a>.
+              by <a href="http://konevaproject.com" target="_blank">KonevaProject</a>.
             </div>
           </v-col>
         </v-row>

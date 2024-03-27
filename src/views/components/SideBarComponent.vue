@@ -17,7 +17,7 @@
 
 <template>
     <v-navigation-drawer
-    expand-on-hover
+    :expand-on-hover="false"
     rail
     v-model="drawer"
     mobile-break-point="960"
