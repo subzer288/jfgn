@@ -3,6 +3,7 @@ import IndexView from '@/views/IndexView.vue'
 import HomePage from '@/views/pages/HomePage.vue'
 import SkillsPage from '@/views/pages/SkillsPage.vue'
 import ProfilePage from '@/views/pages/ProfilePage.vue'
+import NotFoundComponent from '@/views/pages/NotFoundPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,7 @@ const router = createRouter({
           path: '/profile',
           component: ProfilePage,
         },
+        {path: '/:pathMatch(.*)*', component: NotFoundComponent}
       ]
     },
     // {
