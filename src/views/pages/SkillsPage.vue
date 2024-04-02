@@ -1,20 +1,78 @@
 <script setup lang="ts">
     import ChartComponent from './../../components/ChartComponent.vue'
-    import { data }  from '@/stores/info'
+
+    //Interfaces
+    import type { Technology } from '@/interfaces/Technology';
+
+    //Services
+    import getTechnology  from '@/services/Technology';
+
+    import { onMounted, ref } from 'vue';
+        
+    //Storage
+    import { useStore } from '@/stores/store';
+
+    //Functions
+    import groupBy  from '@/utils/functions'
+
+    let store = useStore();
+
+    let technologies: any;
+    let loading = ref(true)
+    let errored = ref(false)
+    let array: any = ref(null);
+
+    onMounted(async () => {
+            if(localStorage.getItem("technologies") == null){
+                if(!store.state.technologies ){
+                    try{
+                        console.log('heroku')
+                        technologies = await getTechnology();
+                        store.commit('SET_TECHNOLOGIES',technologies);
+                        localStorage.setItem("technologies", JSON.stringify(technologies));
+                    }catch{
+                        errored.value = true
+                    }
+                }else{
+                    console.log("state")
+                    technologies = store.state.courses
+                    localStorage.setItem("technologies", JSON.stringify(technologies))
+                    }
+            }else{
+                console.log("localStorage")
+                technologies = JSON.parse(localStorage.getItem("technologies")!) as Array<Technology>;
+            }
+            array = groupBy(technologies, (tec: Technology) => tec.typeTechnology.name)
+            setTimeout(()=>{
+                loading.value = false
+            }, 2000)
+  });
+
 </script>
 
 <template>
     <v-container fluid class="py-5">
-        <v-row justify="center">
-            <v-col cols="10" lg="4" md="4" offset-sm="1"  v-for="(item, index) in data.chartData" :key="index">
+        <v-row align="center" justify="center" v-if="loading">
+          <section>
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="purple"
+              indeterminate
+            ></v-progress-circular>
+          </section>
+        </v-row>
+        <v-row justify="center" v-else>
+            <v-col cols="10" lg="4" md="4" offset-sm="1"  v-for="(item, index) in array" :key="index">
                 <v-card
                 class=""
-                :prepend-icon="item.icon"
-                :subtitle="item.category"
-                :title="item.category"
                 >
 
-                <ChartComponent :data="item.data" :options="data.chartOptions" />
+                <!-- :prepend-icon="item.icon"
+                :subtitle="item.category"
+                :title="item.category" -->
+
+                <ChartComponent :item="item"  />
 
                 <!-- <v-card-text>{{ item.category }}</v-card-text> -->
                 <v-card-actions>
