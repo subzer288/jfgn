@@ -20,15 +20,12 @@
     
   onMounted(() => {
     if(!store.state.repos){
-        console.log('github')
         getRepos().then((info: any) => {
         data = info.data;
         // localStorage.setItem("data", JSON.stringify(info.data));
         store.commit('SET_REPOS',data)
-        console.log('stored on vuex')
         })
         .catch(error => {
-          console.log(error)
           errored.value = true
         })
         .finally(() => {
@@ -39,7 +36,6 @@
 
     }else{
       data = store.state.repos
-      // data = JSON.parse(localStorage.getItem("data")!) as Array<GithubRepository>;
       loading.value = false
     }
   })

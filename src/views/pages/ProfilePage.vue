@@ -29,7 +29,6 @@
             if(localStorage.getItem("courses") == null || localStorage.getItem("jobs") == null || localStorage.getItem("education") == null){
                 if(!store.state.courses || !store.state.jobs || !store.state.education ){
                     try{
-                        console.log('heroku')
                         courses.value = await getCourses();
                         jobs.value = await getJobs();
                         education.value = await getEducation();
@@ -45,7 +44,6 @@
                         errored.value = true
                     }
                 }else{
-                    console.log("state")
                     courses = store.state.courses
                     jobs = store.state.jobs
                     education = store.state.education
@@ -58,7 +56,6 @@
                     
                     }
             }else{
-                console.log("localStorage")
                 courses = JSON.parse(localStorage.getItem("courses")!) as Array<Course>;
                 jobs = JSON.parse(localStorage.getItem("jobs")!) as Array<Job>;
                 education = JSON.parse(localStorage.getItem("education")!) as Array<Education>;

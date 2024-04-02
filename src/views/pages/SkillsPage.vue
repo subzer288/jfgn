@@ -26,7 +26,6 @@
             if(localStorage.getItem("technologies") == null){
                 if(!store.state.technologies ){
                     try{
-                        console.log('heroku')
                         technologies = await getTechnology();
                         store.commit('SET_TECHNOLOGIES',technologies);
                         localStorage.setItem("technologies", JSON.stringify(technologies));
@@ -34,12 +33,10 @@
                         errored.value = true
                     }
                 }else{
-                    console.log("state")
                     technologies = store.state.courses
                     localStorage.setItem("technologies", JSON.stringify(technologies))
                     }
             }else{
-                console.log("localStorage")
                 technologies = JSON.parse(localStorage.getItem("technologies")!) as Array<Technology>;
             }
             array = groupBy(technologies, (tec: Technology) => tec.typeTechnology.name)
